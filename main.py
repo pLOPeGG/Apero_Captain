@@ -43,7 +43,6 @@ def get_remote_all_apero(directory, lazy=True):
             break
         done += [i]
         count += 1
-        if count > 5: break
     print(f'Finished !, Downloaded {count} files')
     print('You can taste all these apero now:')
     print(*done, sep='\n')
