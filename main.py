@@ -1,3 +1,11 @@
+"""
+author : pLOPeGG
+date : 24/09/2018
+abstract : Downloads every podcast from l'Arpéro du Captain and store them as mp3 files.
+
+Not widely tested, might fail.
+Modify as you want.
+"""
 import requests
 import os
 import os.path as path
