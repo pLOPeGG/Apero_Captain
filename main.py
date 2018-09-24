@@ -6,6 +6,8 @@ abstract : Downloads every podcast from l'Apéro du Captain and store them as mp
 Not widely tested, might fail.
 Modify as you want.
 """
+import sys
+import argparse
 import requests
 import os
 import os.path as path
@@ -57,7 +59,12 @@ def get_remote_all_apero(directory, lazy=True):
 
 
 def main():
-    get_remote_all_apero('./docs')
+    parser = argparse.ArgumentParser(description='Download all Apéro du captain for you')
+    parser.add_argument('too_many_apero', help='don\'t care about this, python on Windows is drunk', default='wtf', nargs='?')
+    parser.add_argument('-d', '--directory', help='directory where to store each episode', default='./docs', nargs='?')
+    args = parser.parse_args(sys.argv)
+
+    get_remote_all_apero(args.directory)
     pass
 
 
