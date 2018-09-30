@@ -39,7 +39,7 @@ def get_remote_apero(n):
     return resp.status_code
 
 
-def get_remote_all_apero(directory, lazy=True, from_=1, to_=-1):
+def get_remote_all_apero(directory, lazy=True, from_=1, to_=float('inf')):
     done = []
     count = 0
     if lazy:
@@ -65,7 +65,7 @@ def main():
     parser.add_argument('too_many_apero', help='don\'t care about this, python on Windows is drunk', default='wtf', nargs='?')
     parser.add_argument('-d', '--directory', help='directory where to store each episode', default='./docs', nargs='?')
     parser.add_argument('-f', '--from', help='Start downloading from this episode (included)', default=1, dest='from_', type=int)
-    parser.add_argument('-t', '--to', help='Stop downloading at this episode (included)', default=-1, type=int)
+    parser.add_argument('-t', '--to', help='Stop downloading at this episode (included)', default=float('inf'), type=int)
     args = parser.parse_args(sys.argv)
     get_remote_all_apero(args.directory, from_=args.from_, to_=args.to)
     pass
