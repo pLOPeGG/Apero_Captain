@@ -39,20 +39,22 @@ def get_remote_apero(n):
     return resp.status_code
 
 
-def get_remote_all_apero(directory, lazy=True):
+def get_remote_all_apero(directory, lazy=True, from_=1, to_=-1):
     done = []
     count = 0
     if lazy:
         done = get_stored_apero(directory)
     print(done)
-    for i in itertools.count(start=1, step=1):
-        if i in done: continue
-        print(f'Drinking apéro n°{i} from internet\'s tap...')
-        status = get_remote_apero(i)
-        if status not in [200]:
-            break
-        done += [i]
-        count += 1
+    if from_ <= to_:
+        for i in itertools.count(start=from_, step=1):
+            if i in done: continue
+            print(f'Drinking apéro n°{i} from internet\'s tap...')
+            status = get_remote_apero(i)
+            if status not in [200]:
+                break
+            done += [i]
+            count += 1
+            if i >= to_: break
     print(f'Finished !, {count} new apéros drinked')
     print('Your turn to taste these : ')
     print(*done, sep='\n')
@@ -62,9 +64,10 @@ def main():
     parser = argparse.ArgumentParser(description='Download all Apéro du captain for you')
     parser.add_argument('too_many_apero', help='don\'t care about this, python on Windows is drunk', default='wtf', nargs='?')
     parser.add_argument('-d', '--directory', help='directory where to store each episode', default='./docs', nargs='?')
+    parser.add_argument('-f', '--from', help='Start downloading from this episode (included)', default=1, dest='from_', type=int)
+    parser.add_argument('-t', '--to', help='Stop downloading at this episode (included)', default=-1, type=int)
     args = parser.parse_args(sys.argv)
-
-    get_remote_all_apero(args.directory)
+    get_remote_all_apero(args.directory, from_=args.from_, to_=args.to)
     pass
 
 
